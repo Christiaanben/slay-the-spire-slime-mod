@@ -1,14 +1,15 @@
-package basicmod.cards;
+package slimemod.cards;
 
 import basemod.abstracts.CustomCard;
-import basicmod.BasicMod;
-import basicmod.util.CardInfo;
+import slimemod.BasicMod;
+import slimemod.util.CardInfo;
+
+import static slimemod.BasicMod.makeID;
+import static slimemod.util.TextureLoader.getCardTextureString;
+
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
-
-import static basicmod.BasicMod.makeID;
-import static basicmod.util.TextureLoader.getCardTextureString;
 
 
 public abstract class BaseCard extends CustomCard {

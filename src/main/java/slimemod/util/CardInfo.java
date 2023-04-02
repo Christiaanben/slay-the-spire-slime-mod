@@ -1,4 +1,4 @@
-package basicmod.util;
+package slimemod.util;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 

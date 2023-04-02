@@ -1,12 +1,15 @@
-package basicmod;
+package slimemod;
 
 import basemod.BaseMod;
+import basemod.interfaces.EditCharactersSubscriber;
 import basemod.interfaces.EditKeywordsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
-import basicmod.util.GeneralUtils;
-import basicmod.util.KeywordInfo;
-import basicmod.util.TextureLoader;
+import slimemod.character.MyCharacter;
+import slimemod.util.GeneralUtils;
+import slimemod.util.KeywordInfo;
+import slimemod.util.TextureLoader;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -29,6 +32,7 @@ import java.util.Set;
 
 @SpireInitializer
 public class BasicMod implements
+        EditCharactersSubscriber,
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         PostInitializeSubscriber {
@@ -37,6 +41,8 @@ public class BasicMod implements
     static { loadModInfo(); }
     public static final Logger logger = LogManager.getLogger(modID); //Used to output to the console.
     private static final String resourcesFolder = "basicmod";
+    private static final String CHAR_SELECT_BUTTON = characterPath("select/button.png");
+    private static final String CHAR_SELECT_PORTRAIT = characterPath("select/portrait.png");
 
     //This is used to prefix the IDs of various objects like cards and relics,
     //to avoid conflicts between different mods using the same name for things.
@@ -177,5 +183,14 @@ public class BasicMod implements
         else {
             throw new RuntimeException("Failed to determine mod info/ID based on initializer.");
         }
+    }
+
+    @Override
+    public void receiveEditCharacters() {
+        BaseMod.addCharacter(
+                new MyCharacter(),
+                CHAR_SELECT_BUTTON,
+                CHAR_SELECT_PORTRAIT,
+                MyCharacter.Enums.YOUR_CHARACTER);
     }
 }
