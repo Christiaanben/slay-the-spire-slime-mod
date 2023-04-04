@@ -1,10 +1,13 @@
 package slimemod;
 
+import basemod.AutoAdd;
 import basemod.BaseMod;
+import basemod.interfaces.EditCardsSubscriber;
 import basemod.interfaces.EditCharactersSubscriber;
 import basemod.interfaces.EditKeywordsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
+import slimemod.cards.BaseCard;
 import slimemod.character.MyCharacter;
 import slimemod.util.GeneralUtils;
 import slimemod.util.KeywordInfo;
@@ -33,6 +36,7 @@ import java.util.Set;
 @SpireInitializer
 public class BasicMod implements
         EditCharactersSubscriber,
+        EditCardsSubscriber,
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         PostInitializeSubscriber {
@@ -192,5 +196,13 @@ public class BasicMod implements
                 CHAR_SELECT_BUTTON,
                 CHAR_SELECT_PORTRAIT,
                 MyCharacter.Enums.YOUR_CHARACTER);
+    }
+
+    @Override
+    public void receiveEditCards() {
+        new AutoAdd(modID) // Loads files from this mod
+            .packageFilter(BaseCard.class) // In the same package as this class
+            .setDefaultSeen(true) // And marks them as seen in the compendium
+            .cards(); // Adds them to the game
     }
 }
